@@ -1,4 +1,4 @@
-package com.silicontechnologies.livedatasample.model.entities;
+package com.silicontechnologies.livedatasample.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

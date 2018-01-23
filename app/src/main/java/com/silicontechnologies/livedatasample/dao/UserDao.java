@@ -1,10 +1,10 @@
-package com.silicontechnologies.livedatasample.model.dao;
+package com.silicontechnologies.livedatasample.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import com.silicontechnologies.livedatasample.model.entities.User;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
@@ -17,4 +17,6 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
   @Insert(onConflict = REPLACE) void save(User user);
 
   @Query("SELECT * from user WHERE id = :userId") LiveData<User> load(String userId);
+
+  @Delete void delete(User user);
 }
