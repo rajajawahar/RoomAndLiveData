@@ -2,7 +2,9 @@ package com.silicontechnologies.livedatasample.repo;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import com.silicontechnologies.livedatasample.db.AppDatabase;
 import com.silicontechnologies.livedatasample.entities.User;
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,22 +16,14 @@ import retrofit2.Response;
 public class UserRepo {
 
   private UserApi userApi;
+  private AppDatabase appDatabase;
 
-  public UserRepo(UserApi userApi) {
+  public UserRepo(UserApi userApi, AppDatabase appDatabase) {
     this.userApi = userApi;
+    this.appDatabase = appDatabase;
   }
 
-  public LiveData<User> getUser(String userId) {
-    final MutableLiveData<User> data = new MutableLiveData<>();
-    userApi.getUser(userId).enqueue(new Callback<User>() {
-      @Override public void onResponse(Call<User> call, Response<User> response) {
-        data.setValue(response.body());
-      }
-
-      @Override public void onFailure(Call<User> call, Throwable t) {
-
-      }
-    });
-    return data;
+  public Observable<User> getUser(String userId) {
+    return userApi.getUser(userId);
   }
 }
